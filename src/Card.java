@@ -28,4 +28,20 @@ public class Card {
     public String getType(){
         return type;
     }
+
+
+    /**
+     * This sets the card's color when it needs to be swapped
+     * @param color1
+     */
+    public void setColor(String color1){
+        this.color=color1;
+    }
+    /**
+     * This sets the card's type when it needs to be swapped
+     * @param type1
+     */
+    public void setType(String type1){
+        this.type=type1;
+    }
 }

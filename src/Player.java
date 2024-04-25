@@ -21,7 +21,7 @@ public class Player {
      * @param theCard
      */
     public void addCard(Card theCard){
-
+        theHand.add(theCard);
     }
 
     /**
@@ -29,7 +29,7 @@ public class Player {
      * @param newTurn
      */
     public void setTurn(int newTurn){
-        turn=newTurn;
+        this.turn=newTurn;
     }
 
     /**
@@ -38,7 +38,12 @@ public class Player {
      * @return
      */
     public Card playCard(int cardPosition){
+        cardPosition=cardPosition-1;
 
-        return new Card("Red","Two");
+         Card selectCard = new Card(theHand.get(cardPosition).getColor(),theHand.get(cardPosition).getType());
+
+         theHand.remove(cardPosition);
+
+        return selectCard;
     }
 }

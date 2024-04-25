@@ -17,13 +17,13 @@ public class Pile {
      * @param c
      */
     public void addCard(Card c){
-
+        stack.addFirst(c);
     }
 
     /**
      * Clears the stack, will be used once a new deck is made after the deck has been used up
      */
     public void ClearPile(){
-
+        stack.clear();
     }
 }
