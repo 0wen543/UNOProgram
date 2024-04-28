@@ -14,7 +14,7 @@ public class Game {
      */
     public Boolean isPlusFour(Card c){
 
-        return false;
+        return c.getType().equals("plus four");
     }
     /**
      * verifies if the card is a plus two to trigger effect
@@ -23,7 +23,7 @@ public class Game {
      */
     public Boolean isPlusTwo(Card c){
 
-        return false;
+        return c.getType().equals("plus two");
     }
     /**
      * verifies if the card is a reverse to trigger effect
@@ -32,7 +32,7 @@ public class Game {
      */
     public Boolean isReverse(Card c){
 
-        return false;
+        return c.getType().equals("reverse");
     }
     /**
      * verifies if the card is a skip to trigger effect
@@ -41,7 +41,7 @@ public class Game {
      */
     public Boolean isSkip(Card c){
 
-        return false;
+        return c.getType().equals("skip");
     }
     /**
      * verifies if the card is a wild to trigger effect
@@ -50,7 +50,7 @@ public class Game {
      */
     public Boolean isWild(Card c){
 
-        return false;
+        return c.getType().equals("");
     }
     /**
      * verifies if there is a winner and ends the game
@@ -63,10 +63,10 @@ public class Game {
     }
     /**
      * verifies if the deck is empty to reset it with the pile
-     * @param c
+     * @param d
      * @return
      */
-    public Boolean isEmpty(Card c){
+    public Boolean isEmpty(Deck d){
 
         return false;
     }

@@ -10,7 +10,7 @@ public class Deck {
      * Creates a 112 card deck, as a queue to easily draw cards
      */
     public Deck(){
-        deck = new LinkedList<>();
+        deck = new ArrayDeque<>();
 
         String color = "";
 
@@ -90,6 +90,6 @@ public class Deck {
     }
 
     public Deck(ArrayList shuffle){
-        this.deck = new LinkedList<Card>(shuffle);
+        this.deck = new ArrayDeque<>(shuffle);
     }
 }
