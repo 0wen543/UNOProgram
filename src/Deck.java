@@ -68,6 +68,10 @@ public class Deck {
         cardB.setType(holder.getType());
     }
 
+    public Card draw(){
+        return deck.remove();
+    }
+
     /**
      * Runs the swap method 112 times to shuffle the deck
      */
@@ -89,7 +93,16 @@ public class Deck {
 
     }
 
+
     public Deck(ArrayList shuffle){
         this.deck = new ArrayDeque<>(shuffle);
+    }
+
+    /**
+     * This checks to see if the deck is empty
+     * @return
+     */
+    public Boolean emptyDeck(){
+        return this.deck.isEmpty();
     }
 }

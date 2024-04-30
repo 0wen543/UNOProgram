@@ -24,6 +24,10 @@ public class Player {
         theHand.add(theCard);
     }
 
+    public int handSize(){
+        return this.theHand.size();
+    }
+
     /**
      * resets the player's turn orders if a reverse is played
      * @param newTurn
@@ -39,11 +43,19 @@ public class Player {
      */
     public Card playCard(int cardPosition){
         cardPosition=cardPosition-1;
+        //verifies if the card is within bounds
+        if (cardPosition>=theHand.size() || cardPosition<0) {
+            throw new IllegalArgumentException("The number was out of bounds");
+        }else {
+            Card selectCard = new Card(theHand.get(cardPosition).getColor(), theHand.get(cardPosition).getType());
 
-         Card selectCard = new Card(theHand.get(cardPosition).getColor(),theHand.get(cardPosition).getType());
+            theHand.remove(cardPosition);
 
-         theHand.remove(cardPosition);
+            return selectCard;
+        }
+    }
 
-        return selectCard;
+    public boolean hasWon(){
+        return this.theHand.isEmpty();
     }
 }
