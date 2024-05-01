@@ -47,6 +47,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return this.type + " of " + this.color;
+        return this.color + " " + this.type;
     }
 }

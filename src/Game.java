@@ -15,6 +15,7 @@ public class Game {
         int selectCard;
         Card played;
         Pile thePile = new Pile();
+        Boolean isPlayable = false;
 
         //asks how many people are playing
         Scanner scan = new Scanner(System.in);
@@ -30,17 +31,28 @@ public class Game {
             }
         }
 
+        //Starts the pile with the first card on top of the deck after dealing hands
+        thePile.addCard(theDeck.getCard());
+
         while(!players.get(turnCounter).hasWon()){
             try{
                 //List out every card in the hand
-                for (int i=1; i<=players.get(turnCounter).handSize(); i++){
-                    System.out.println(i + ". "+players.get(turnCounter).getCard(i-1).toString());
-                }
-                System.out.println("Please type in number to play your card.");
-                selectCard = scan.nextInt();
-                played=players.get(turnCounter).playCard(selectCard);
-                thePile.addCard(played);
+                while(!isPlayable) {
+                    for (int i=1; i<=players.get(turnCounter).handSize(); i++){
+                       System.out.println(i + ". "+players.get(turnCounter).getCard(i-1).toString());
+                    }
+                    System.out.printf("\n \nThe top card is a "+ thePile.topCard().toString());
+                    System.out.println("Please type in number to play your card.");
+                    selectCard = scan.nextInt();
+                    played=players.get(turnCounter).playCard(selectCard);
+                    isPlayable = playability(played, thePile.topCard());
 
+                    if (isPlayable) {
+                        thePile.addCard(played);
+                    } else {
+                        System.out.println("Bad card, no no square");
+                    }
+                }
             }catch (NumberFormatException e) {
                 //catches if a person tries to put in an invalid number
                 System.out.println("That is not a valid integer, please re enter a number");
@@ -110,4 +122,14 @@ public class Game {
     public Boolean isEmpty(Deck d){
         return d.emptyDeck();
     }
+
+    public static boolean playability(Card there, Card theirs){
+        if (there.getType().equals(theirs.getType())
+            || there.getColor().equals(theirs.getColor())
+            || there.getColor().equals("Wild")) {
+            return true;
+        }
+        return false;
+    }
+
 }

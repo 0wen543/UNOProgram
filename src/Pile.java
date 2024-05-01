@@ -26,4 +26,8 @@ public class Pile {
     public void ClearPile(){
         stack.clear();
     }
+
+    public Card topCard(){
+        return stack.getLast();
+    }
 }

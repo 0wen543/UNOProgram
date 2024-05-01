@@ -37,17 +37,27 @@ public class Deck {
             deck.add(new Card(color,"seven"));
             deck.add(new Card(color,"eight"));
             deck.add(new Card(color,"nine"));
+            deck.add(new Card(color,"zero"));
+            deck.add(new Card(color,"one"));
+            deck.add(new Card(color,"two"));
+            deck.add(new Card(color,"three"));
+            deck.add(new Card(color,"four"));
+            deck.add(new Card(color,"five"));
+            deck.add(new Card(color,"six"));
+            deck.add(new Card(color,"seven"));
+            deck.add(new Card(color,"eight"));
+            deck.add(new Card(color,"nine"));
             deck.add(new Card(color,"reverse"));
             deck.add(new Card(color,"reverse"));
             deck.add(new Card(color,"skip"));
             deck.add(new Card(color,"skip"));
-            deck.add(new Card(color,"plus two"));
-            deck.add(new Card(color,"plus two"));
+            deck.add(new Card(color,"+2"));
+            deck.add(new Card(color,"+2"));
         }
         deck.add(new Card("Wild",""));
         deck.add(new Card("Wild",""));
-        deck.add(new Card("Wild","plus four"));
-        deck.add(new Card("Wild","plus four"));
+        deck.add(new Card("Wild","+4"));
+        deck.add(new Card("Wild","+4"));
     }
 
     /**
@@ -78,8 +88,8 @@ public class Deck {
     public void shuffle(){
         Random rand = new Random();
         ArrayList<Card> shuffler = new ArrayList<>(deck);
-        for(int i=0; i<112; i++){
-            swap(shuffler.get(i), shuffler.get(rand.nextInt(112)));
+        for(int i=0; i<108; i++){
+            swap(shuffler.get(i), shuffler.get(rand.nextInt(108)));
         }
         new Deck(shuffler);
     }
@@ -93,6 +103,13 @@ public class Deck {
 
     }
 
+    /**
+     * gets first card
+     * @return first card
+     */
+    public Card getCard(){
+        return deck.remove();
+    }
 
     public Deck(ArrayList shuffle){
         this.deck = new ArrayDeque<>(shuffle);
