@@ -11,16 +11,20 @@ public class Game {
         final int startingCards=5;
         ArrayList<Player> players = new ArrayList<>();
         Deck theDeck = new Deck();
-        int turnCounter=1;
+        int turnCounter=0;
+        int selectCard;
+        Card played;
+        Pile thePile = new Pile();
 
         //asks how many people are playing
         Scanner scan = new Scanner(System.in);
         System.out.println("How many people will play this game? (Please type as an integer)");
         numPlayers=scan.nextInt();
 
-        //creates hand for each of the players
+        //shuffles the deck and creates hands for each of the players
+        theDeck.shuffle();
         for (int i=0; i<numPlayers; i++){
-            players.add(new Player(i+1));
+            players.add(new Player(i));
             for(int f=0; f<startingCards; f++) {
                 players.get(i).addCard(theDeck.draw());
             }
@@ -29,9 +33,13 @@ public class Game {
         while(!players.get(turnCounter).hasWon()){
             try{
                 //List out every card in the hand
-                for (int i=1; i<=players.get(i).handSize(); i++){
-                    System.out.println(i + ". "+players.get(i));
+                for (int i=1; i<=players.get(turnCounter).handSize(); i++){
+                    System.out.println(i + ". "+players.get(turnCounter).getCard(i-1).toString());
                 }
+                System.out.println("Please type in number to play your card.");
+                selectCard = scan.nextInt();
+                played=players.get(turnCounter).playCard(selectCard);
+                thePile.addCard(played);
 
             }catch (NumberFormatException e) {
                 //catches if a person tries to put in an invalid number

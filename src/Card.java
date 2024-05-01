@@ -44,4 +44,9 @@ public class Card {
     public void setType(String type1){
         this.type=type1;
     }
+
+    @Override
+    public String toString() {
+        return this.type + " of " + this.color;
+    }
 }

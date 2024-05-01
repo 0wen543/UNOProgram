@@ -55,6 +55,10 @@ public class Player {
         }
     }
 
+    public Card getCard(int n){
+        return theHand.get(n);
+    }
+
     public boolean hasWon(){
         return this.theHand.isEmpty();
     }
