@@ -28,6 +28,6 @@ public class Pile {
     }
 
     public Card topCard(){
-        return stack.getLast();
+        return stack.getFirst();
     }
 }
