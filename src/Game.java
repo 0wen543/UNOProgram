@@ -41,8 +41,8 @@ public class Game {
                     for (int i=1; i<=players.get(turnCounter).handSize(); i++){
                        System.out.println(i + ". "+players.get(turnCounter).getCard(i-1).toString());
                     }
-                    System.out.printf("\n \nThe top card is a "+ thePile.topCard().toString()+"\n");
-                    System.out.println(" Please type in number to play your card.");
+                    System.out.printf("\nThe top card is a "+ thePile.topCard().toString()+"\n");
+                    System.out.println("Please type in number to play your card.");
                     selectCard = scan.nextInt();
                     played=players.get(turnCounter).playCard(selectCard);
                     isPlayable = playability(played, thePile.topCard());
