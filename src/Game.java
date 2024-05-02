@@ -41,8 +41,8 @@ public class Game {
                     for (int i=1; i<=players.get(turnCounter).handSize(); i++){
                        System.out.println(i + ". "+players.get(turnCounter).getCard(i-1).toString());
                     }
-                    System.out.printf("\n \nThe top card is a "+ thePile.topCard().toString());
-                    System.out.println("Please type in number to play your card.");
+                    System.out.printf("\n \nThe top card is a "+ thePile.topCard().toString()+"\n");
+                    System.out.println(" Please type in number to play your card.");
                     selectCard = scan.nextInt();
                     played=players.get(turnCounter).playCard(selectCard);
                     isPlayable = playability(played, thePile.topCard());
@@ -50,8 +50,13 @@ public class Game {
                     if (isPlayable) {
                         thePile.addCard(played);
                     } else {
-                        System.out.println("Bad card, no no square");
+                        System.out.println("That card is not valid.");
                     }
+                }
+                if (turnCounter==numPlayers-1) {
+                    turnCounter = 0;
+                }else {
+                    turnCounter++;
                 }
             }catch (NumberFormatException e) {
                 //catches if a person tries to put in an invalid number
