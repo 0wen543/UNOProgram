@@ -55,8 +55,10 @@ public class Game {
                 }
                 if (turnCounter==numPlayers-1) {
                     turnCounter = 0;
+                    isPlayable=false;
                 }else {
                     turnCounter++;
+                    isPlayable=false;
                 }
             }catch (NumberFormatException e) {
                 //catches if a person tries to put in an invalid number
