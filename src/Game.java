@@ -45,11 +45,12 @@ public class Game {
                     System.out.printf("\nThe top card is a "+ thePile.topCard().toString()+"\n");
                     System.out.println("Please type in number to play your card.");
                     selectCard = scan.nextInt();
-                    played=players.get(turnCounter).playCard(selectCard);
+                    played=players.get(turnCounter).getCard(selectCard-1);
                     isPlayable = playability(played, thePile.topCard());
 
                     if (isPlayable) {
-                        thePile.addCard(played);
+                        thePile.addCard(players.get(turnCounter).playCard(selectCard));
+
                     } else {
                         System.out.println("That card is not valid.");
                     }
@@ -113,13 +114,11 @@ public class Game {
                         turnCounter++;
                     }
                 }
-
-
-                if (turnCounter>=numPlayers-1) {
-                    turnCounter = turnCounter-players.size();
+                turnCounter++;
+                if (turnCounter>=numPlayers) {
+                    turnCounter = turnCounter-numPlayers;
                     isPlayable=false;
                 }else {
-                    turnCounter++;
                     isPlayable=false;
                 }
             }catch (NumberFormatException e) {
