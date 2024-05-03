@@ -116,7 +116,7 @@ public class Game {
                 }
                 turnCounter++;
                 if (turnCounter>=numPlayers) {
-                    turnCounter = turnCounter-numPlayers;
+                    turnCounter = turnCounter-numPlayers+1;
                     isPlayable=false;
                 }else {
                     isPlayable=false;
