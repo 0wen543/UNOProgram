@@ -4,6 +4,9 @@ public class Player {
 
     private ArrayList<Card> theHand;
 
+    //Player number for names sake
+    private int playNum;
+
     private int turn;
 
     /**
@@ -13,6 +16,7 @@ public class Player {
 
     public Player(int turnNum){
         turn=turnNum;
+        playNum=turnNum+1;
         theHand=new ArrayList<>();
     }
 
@@ -60,6 +64,8 @@ public class Player {
     }
 
     public int getTurn(){return turn;}
+
+    public int getPlayNum(){return playNum;}
 
     public boolean hasWon(){
         return this.theHand.isEmpty();
