@@ -59,6 +59,8 @@ public class Player {
         return theHand.get(n);
     }
 
+    public int getTurn(){return turn;}
+
     public boolean hasWon(){
         return this.theHand.isEmpty();
     }

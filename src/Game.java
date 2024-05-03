@@ -39,84 +39,91 @@ public class Game {
             try{
                 //List out every card in the hand
                 while(!isPlayable) {
-                    for (int i=1; i<=players.get(turnCounter).handSize(); i++){
-                       System.out.println(i + ". "+players.get(turnCounter).getCard(i-1).toString());
+                    System.out.printf("\nPlayer "+ players.get(turnCounter).getTurn() +".\n");
+                    for (int i = 1; i <= players.get(turnCounter).handSize(); i++) {
+                        System.out.println(i + ". " + players.get(turnCounter).getCard(i - 1).toString());
                     }
-                    System.out.printf("\nThe top card is a "+ thePile.topCard().toString()+"\n");
-                    System.out.println("Please type in number to play your card.");
-                    selectCard = scan.nextInt();
-                    played=players.get(turnCounter).getCard(selectCard-1);
-                    isPlayable = playability(played, thePile.topCard());
-
-                    if (isPlayable) {
-                        thePile.addCard(players.get(turnCounter).playCard(selectCard));
-
+                    System.out.printf("\nThe top card is a " + thePile.topCard().toString() + "\n");
+                    //check hand for any playable cards
+                    if (!(handPlayability(players.get(turnCounter), thePile.topCard()))) {
+                        //then player must draw
+                        players.get(turnCounter).addCard(theDeck.draw());
                     } else {
-                        System.out.println("That card is not valid.");
-                    }
-                    //Occurs when a plus four is played
-                    if (isPlusFour(played)){
-                        for (int i=0; i<4; i++) {
-                            players.get(turnCounter + 1).addCard(theDeck.draw());
+                        System.out.println("Please type in number to play your card.");
+                        selectCard = scan.nextInt();
+                        played = players.get(turnCounter).getCard(selectCard - 1);
+                        isPlayable = playability(played, thePile.topCard());
+
+                        if (isPlayable) {
+                            thePile.addCard(players.get(turnCounter).playCard(selectCard));
+                            System.out.println("__________________________________________");
+                        } else {
+                            System.out.println("That card is not valid.");
                         }
-                        System.out.println("Please choose a color.");
-                        newColor= scan.next();
-                        if (newColor.equals("yellow")) {
-                            played.setType("yellow");
-                        } else if (newColor.equals("red")) {
-                            played.setType("red");
-                        } else if (newColor.equals("green")) {
-                            played.setType("green");
-                        } else if (newColor.equals("blue")) {
-                            played.setType("blue");
+                        //Occurs when a plus four is played
+                        if (isPlusFour(played)) {
+                            for (int i = 0; i < 4; i++) {
+                                players.get(turnCounter + 1).addCard(theDeck.draw());
+                            }
+                            System.out.println("Please choose a color.");
+                            newColor = scan.next();
+                            if (newColor.equals("yellow")) {
+                                played.setType("yellow");
+                            } else if (newColor.equals("red")) {
+                                played.setType("red");
+                            } else if (newColor.equals("green")) {
+                                played.setType("green");
+                            } else if (newColor.equals("blue")) {
+                                played.setType("blue");
+                            }
+                            turnCounter++;
                         }
-                        turnCounter++;
-                    }
 
 
-                    //occurs when a wild card is played
-                    else if (isWild(played)) {
-                        System.out.println("Please choose a color.");
-                        newColor= scan.next();
-                        if (newColor.equals("yellow")) {
-                            played.setType("yellow");
-                        } else if (newColor.equals("red")) {
-                            played.setType("red");
-                        } else if (newColor.equals("green")) {
-                            played.setType("green");
-                        } else if (newColor.equals("blue")) {
-                            played.setType("blue");
+                        //occurs when a wild card is played
+                        else if (isWild(played)) {
+                            System.out.println("Please choose a color.");
+                            newColor = scan.next();
+                            if (newColor.equals("yellow")) {
+                                played.setType("yellow");
+                            } else if (newColor.equals("red")) {
+                                played.setType("red");
+                            } else if (newColor.equals("green")) {
+                                played.setType("green");
+                            } else if (newColor.equals("blue")) {
+                                played.setType("blue");
+                            }
                         }
-                    }
 
 
-                    //occurs when a skip is played
-                    else if (isSkip(played)){
-                        turnCounter++;
-                    }
-
-
-                    //occurs when a reverse card is played
-                    else if (isReverse(played)) {
-                        int reverseOrder=players.size()-1;
-                        for(int i=0; i<players.size(); i++){
-                            players.get(i).setTurn(reverseOrder);
-                            reverseOrder--;
+                        //occurs when a skip is played
+                        else if (isSkip(played)) {
+                            turnCounter++;
                         }
-                    }
 
 
-                    //occurs when a plus two is played
-                    else if (isPlusTwo(played)) {
-                        for (int i=0; i<2; i++) {
-                            players.get(turnCounter + 1).addCard(theDeck.draw());
+                        //occurs when a reverse card is played
+                        else if (isReverse(played)) {
+                            int reverseOrder = players.size();
+                            for (int i = 0; i < players.size(); i++) {
+                                players.get(i).setTurn(reverseOrder);
+                                reverseOrder--;
+                            }
                         }
-                        turnCounter++;
+
+
+                        //occurs when a plus two is played
+                        else if (isPlusTwo(played)) {
+                            for (int i = 0; i < 2; i++) {
+                                players.get(turnCounter + 1).addCard(theDeck.draw());
+                            }
+                            turnCounter++;
+                        }
                     }
                 }
                 turnCounter++;
                 if (turnCounter>=numPlayers) {
-                    turnCounter = turnCounter-numPlayers+1;
+                    turnCounter = 0;
                     isPlayable=false;
                 }else {
                     isPlayable=false;
@@ -191,6 +198,21 @@ public class Game {
             || there.getColor().equals(theirs.getColor())
             || there.getColor().equals("Wild")) {
             return true;
+        }
+        return false;
+    }
+
+    /**
+     * checks if any cards in the current players hand, on their turn, are playable
+     * @param p the hand of the current player
+     * @param c the top card of Pile
+     * @return
+     */
+    public static boolean handPlayability(Player p, Card c){
+        for (int i = 0; i < p.handSize(); i++) {
+            if (playability(p.getCard(i), c)){
+                return true;
+            }
         }
         return false;
     }
