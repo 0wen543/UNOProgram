@@ -13,6 +13,7 @@ public class Game {
         Deck theDeck = new Deck();
         int turnCounter=0;
         int selectCard;
+        String newColor;
         Card played;
         Pile thePile = new Pile();
         Boolean isPlayable = false;
@@ -52,9 +53,70 @@ public class Game {
                     } else {
                         System.out.println("That card is not valid.");
                     }
+                    //Occurs when a plus four is played
+                    if (isPlusFour(played)){
+                        for (int i=0; i<4; i++) {
+                            players.get(turnCounter + 1).addCard(theDeck.draw());
+                        }
+                        System.out.println("Please choose a color.");
+                        newColor= scan.next();
+                        if (newColor.equals("yellow")) {
+                            played.setType("yellow");
+                        } else if (newColor.equals("red")) {
+                            played.setType("red");
+                        } else if (newColor.equals("green")) {
+                            played.setType("green");
+                        } else if (newColor.equals("blue")) {
+                            played.setType("blue");
+                        }
+                        turnCounter++;
+                    }
+
+
+                    //occurs when a wild card is played
+                    else if (isWild(played)) {
+                        System.out.println("Please choose a color.");
+                        newColor= scan.next();
+                        if (newColor.equals("yellow")) {
+                            played.setType("yellow");
+                        } else if (newColor.equals("red")) {
+                            played.setType("red");
+                        } else if (newColor.equals("green")) {
+                            played.setType("green");
+                        } else if (newColor.equals("blue")) {
+                            played.setType("blue");
+                        }
+                    }
+
+
+                    //occurs when a skip is played
+                    else if (isSkip(played)){
+                        turnCounter++;
+                    }
+
+
+                    //occurs when a reverse card is played
+                    else if (isReverse(played)) {
+                        int reverseOrder=players.size()-1;
+                        for(int i=0; i<players.size(); i++){
+                            players.get(i).setTurn(reverseOrder);
+                            reverseOrder--;
+                        }
+                    }
+
+
+                    //occurs when a plus two is played
+                    else if (isPlusTwo(played)) {
+                        for (int i=0; i<2; i++) {
+                            players.get(turnCounter + 1).addCard(theDeck.draw());
+                        }
+                        turnCounter++;
+                    }
                 }
-                if (turnCounter==numPlayers-1) {
-                    turnCounter = 0;
+
+
+                if (turnCounter>=numPlayers-1) {
+                    turnCounter = turnCounter-players.size();
                     isPlayable=false;
                 }else {
                     turnCounter++;
@@ -73,8 +135,7 @@ public class Game {
      * @param c
      * @return
      */
-    public Boolean isPlusFour(Card c){
-
+    public static Boolean isPlusFour(Card c){
         return c.getType().equals("plus four");
     }
     /**
@@ -82,8 +143,7 @@ public class Game {
      * @param c
      * @return
      */
-    public Boolean isPlusTwo(Card c){
-
+    public static Boolean isPlusTwo(Card c){
         return c.getType().equals("plus two");
     }
     /**
@@ -91,8 +151,7 @@ public class Game {
      * @param c
      * @return
      */
-    public Boolean isReverse(Card c){
-
+    public static Boolean isReverse(Card c){
         return c.getType().equals("reverse");
     }
     /**
@@ -100,8 +159,7 @@ public class Game {
      * @param c
      * @return
      */
-    public Boolean isSkip(Card c){
-
+    public static Boolean isSkip(Card c){
         return c.getType().equals("skip");
     }
     /**
@@ -109,8 +167,7 @@ public class Game {
      * @param c
      * @return
      */
-    public Boolean isWild(Card c){
-
+    public static Boolean isWild(Card c){
         return c.getType().equals("");
     }
     /**

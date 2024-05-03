@@ -29,7 +29,6 @@ public class Card {
         return type;
     }
 
-
     /**
      * This sets the card's color when it needs to be swapped
      * @param color1
