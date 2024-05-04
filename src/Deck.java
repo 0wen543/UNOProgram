@@ -7,7 +7,7 @@ public class Deck {
     private Queue<Card> deck;
 
     /**
-     * Creates a 112 card deck, as a queue to easily draw cards
+     * Creates a 108 card deck, as a queue to easily draw cards
      */
     public Deck(){
         deck = new ArrayDeque<>();
@@ -99,8 +99,12 @@ public class Deck {
      * @param pile
      */
 
-    public Deck(LinkedList pile){
-
+    public void newDeck(Deque<Card> pile){
+        ArrayList<Card> thePile = new ArrayList<>(pile);
+        int pileSize = pile.size();
+        for(int i=0; i<pileSize; i++){
+            this.deck.add(thePile.get(i));
+        }
     }
 
     /**

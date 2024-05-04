@@ -147,6 +147,9 @@ public class Game {
                 //catches if a person tries to put in an invalid number
                 System.out.println("That is not a valid integer, please re enter a number");
             }
+            if (isEmpty(theDeck)){
+                theDeck.newDeck(thePile.getPile());
+            }
         }
         System.out.println("Congratulations Player "+players.get(turnCounter).getPlayNum()+" is the winner!!!!");
     }
@@ -204,7 +207,7 @@ public class Game {
      * @param d the deck
      * @return true if the deck is empty and needs reshuffled, false if otherwise
      */
-    public Boolean isEmpty(Deck d){
+    public static Boolean isEmpty(Deck d){
         return d.emptyDeck();
     }
 
