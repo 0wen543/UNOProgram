@@ -14,7 +14,7 @@ public class Pile {
 
     /**
      * Adds a card to the stack
-     * @param c
+     * @param c The card that was played and now in the pile
      */
     public void addCard(Card c){
         stack.addFirst(c);
@@ -25,6 +25,13 @@ public class Pile {
      */
     public void ClearPile(){
         stack.clear();
+    }
+
+    /**
+     * @return returns the pile stack of cards
+     */
+    public Deque<Card> getPile(){
+        return this.stack;
     }
 
     public Card topCard(){
