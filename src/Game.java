@@ -14,20 +14,27 @@ public class Game {
         Deck theDeck = new Deck();
         int turnCounter=0;
         int selectCard;
-        String newColor;
+        String newColor="";
         Card played;
         Pile thePile = new Pile();
         Boolean isPlayable = false;
         Boolean normalTurnOrder = true;
+        Boolean isValidColor = false;
+        String playerEntry;
 
         Scanner scan = new Scanner(System.in);
 
         //asks how many people are playing
         while (numPlayers < 2 || numPlayers > 10){
-            System.out.println("How many people will play this game? (Please type as an integer)");
-            numPlayers=scan.nextInt();
-            if (numPlayers < 2 || numPlayers > 10) {
-                System.out.println("Can't play with that number of players");
+            try {
+                System.out.println("How many people will play this game? (Please type as an integer)");
+                playerEntry = scan.next();
+                numPlayers=Integer.parseInt(playerEntry);
+                if (numPlayers < 2 || numPlayers > 10) {
+                    System.out.println("Can't play with that number of players");
+                }
+            }catch(NumberFormatException I){
+                System.out.println("That is not a number");
             }
         }
 
@@ -59,7 +66,8 @@ public class Game {
                         players.get(turnCounter).addCard(theDeck.draw());
                     } else {
                         System.out.println("Please type in number to play your card.");
-                        selectCard = scan.nextInt();
+                        playerEntry = scan.next();
+                        selectCard=Integer.parseInt(playerEntry);
                         played = players.get(turnCounter).getCard(selectCard - 1);
                         isPlayable = playability(played, thePile.topCard());
 
@@ -71,8 +79,15 @@ public class Game {
                         }
                         //Occurs when a plus four is played
                         if (isWild(played)) {
-                            System.out.println("Please choose a color.");
-                            newColor = scan.next();
+                            while(!isValidColor) {
+                                System.out.println("Please choose a color.(Lowercase)");
+                                newColor = scan.next();
+                                if (newColor.equals("yellow")||newColor.equals("red")||newColor.equals("green")||newColor.equals("blue")){
+                                    isValidColor=true;
+                                }else {
+                                    System.out.println("That color is not valid.");
+                                }
+                            }
                             if (newColor.equals("yellow")) {
                                 thePile.topCard().setColor("yellow");
                             } else if (newColor.equals("red")) {
@@ -150,20 +165,20 @@ public class Game {
                 }else {
                     isPlayable=false;
                 }
-
+                if (isEmpty(theDeck)){
+                    theDeck.newDeck(thePile.getPile());
+                    theDeck.shuffle();
+                }
                 if(isWinner(players.get(turnCounter))){
                     System.out.println("Congratulations Player "+players.get(turnCounter).getPlayNum()+" is the winner!!!!");
                     break;
                 }
 
-            }catch (IllegalArgumentException e) {
+            }catch (NumberFormatException e) {
                 //catches if a person tries to put in an invalid number
-                System.out.println(e.getMessage());
-            }catch (InputMismatchException f){
                 System.out.println("That was not a number!");
-            }
-            if (isEmpty(theDeck)){
-                theDeck.newDeck(thePile.getPile());
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
             }
         }
     }
