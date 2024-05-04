@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Game {
     /**
@@ -122,12 +123,6 @@ public class Game {
                                 turnCounter--;
                                 normalTurnOrder = false;
                             }
-
-                            //Maybe when a reverse is played, we need to set their turns to opposite
-                            //use a boolean to keep track of whether we are going in reverse order or original order
-                            //this is so that when we go in reverse order, and someone uses a card that skips a turn on the end
-                            //it doesn't give player zero another turn
-                            //
                         }
 
 
@@ -161,9 +156,11 @@ public class Game {
                     break;
                 }
 
-            }catch (NumberFormatException e) {
+            }catch (IllegalArgumentException e) {
                 //catches if a person tries to put in an invalid number
-                System.out.println("That is not a valid integer, please re enter a number");
+                System.out.println(e.getMessage());
+            }catch (InputMismatchException f){
+                System.out.println("That was not a number!");
             }
             if (isEmpty(theDeck)){
                 theDeck.newDeck(thePile.getPile());

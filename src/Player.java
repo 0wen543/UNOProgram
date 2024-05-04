@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Player {
 
@@ -45,22 +46,29 @@ public class Player {
      * @param cardPosition
      * @return
      */
-    public Card playCard(int cardPosition){
+    public Card playCard(int cardPosition) throws IllegalArgumentException{
         cardPosition=cardPosition-1;
         //verifies if the card is within bounds
         if (cardPosition>=theHand.size() || cardPosition<0) {
-            throw new IllegalArgumentException("The number was out of bounds");
-        }else {
+            throw new IllegalArgumentException("The number was out of bounds!");
+        }else if (cardPosition>-1 || cardPosition<handSize()){
             Card selectCard = new Card(theHand.get(cardPosition).getColor(), theHand.get(cardPosition).getType());
 
             theHand.remove(cardPosition);
 
             return selectCard;
         }
+        else {
+            throw new IllegalArgumentException("That was not a valid input!");
+        }
     }
 
-    public Card getCard(int n){
-        return theHand.get(n);
+    public Card getCard(int n)throws IllegalArgumentException{
+        if (n>=theHand.size() || n<0) {
+            throw new IllegalArgumentException("The number was out of bounds!");
+        }else{
+            return theHand.get(n);
+        }
     }
 
     public int getPlayNum(){return playNum;}
