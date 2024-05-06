@@ -25,7 +25,13 @@ public class Pile {
      * and adds the old top card to the top of the pile
      */
     public void ClearPile(){
+        //holds the top card
         Card c= topCard();
+
+        //removes the top card
+        stack.removeFirst();
+
+        //clears the deck and adds the top card
         stack.clear();
         stack.add(c);
     }
