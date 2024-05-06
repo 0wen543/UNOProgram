@@ -160,6 +160,11 @@ public class Game {
                             }
                         }
                     }
+                    //checks to see if the player has won
+                    if(isWinner(players.get(turnCounter))){
+                        System.out.println("Congratulations Player "+players.get(turnCounter).getPlayNum()+" is the winner!!!!");
+                        break;
+                    }
                 }
                 //adds one to the turn counter
                 turnCounter++;
@@ -177,12 +182,6 @@ public class Game {
                     theDeck.newDeck(thePile.getPile());
                     thePile.ClearPile();
                     theDeck.shuffle();
-                }
-
-                //checks to see if the player has won
-                if(isWinner(players.get(turnCounter))){
-                    System.out.println("Congratulations Player "+players.get(turnCounter).getPlayNum()+" is the winner!!!!");
-                    break;
                 }
 
             }catch (NumberFormatException e) {
