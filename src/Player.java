@@ -8,43 +8,37 @@ public class Player {
     //Player number for names sake
     private int playNum;
 
-    private int turn;
-
     /**
      * Creates a hand arrayList and gives the player a turn number, the higher the counter the later a person goes
-     * @param turnNum
+     * @param turnNum The original turn order for the player
      */
-
     public Player(int turnNum){
-        turn=turnNum;
         playNum=turnNum+1;
         theHand=new ArrayList<>();
     }
 
     /**
      * Adds a card to the players hand
-     * @param theCard
+     * @param theCard the card to be added to the hand
      */
     public void addCard(Card theCard){
         theHand.add(theCard);
     }
 
+
+    /**
+     * returns the hand size for the player's hand
+     * @return an integer for the hand
+     */
     public int handSize(){
         return this.theHand.size();
     }
 
     /**
-     * resets the player's turn orders if a reverse is played
-     * @param newTurn
-     */
-    public void setTurn(int newTurn){
-        this.turn=newTurn;
-    }
-
-    /**
      * Removes a card from the arrayList and returns it to be played on the pile
-     * @param cardPosition
-     * @return
+     * @param cardPosition the position of the card in the hand
+     * @return the card to be played
+     * @throws IllegalArgumentException If the input is invalid or the number was out of bounds
      */
     public Card playCard(int cardPosition) throws IllegalArgumentException{
         cardPosition=cardPosition-1;
@@ -63,6 +57,12 @@ public class Player {
         }
     }
 
+    /**
+     * gets a card from the hand, but does not remove it
+     * @param n the location of the card in the hand
+     * @return a card in the hand at the nth position
+     * @throws IllegalArgumentException if the number was out of bounds
+     */
     public Card getCard(int n)throws IllegalArgumentException{
         if (n>=theHand.size() || n<0) {
             throw new IllegalArgumentException("The number was out of bounds!");
@@ -71,8 +71,16 @@ public class Player {
         }
     }
 
+    /**
+     * returns the player number
+     * @return an integer representing the player's number
+     */
     public int getPlayNum(){return playNum;}
 
+    /**
+     * checks to see if a player has won
+     * @return a true or false statement if the player won or not
+     */
     public boolean hasWon(){
         return this.theHand.isEmpty();
     }

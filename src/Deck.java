@@ -62,8 +62,8 @@ public class Deck {
 
     /**
      * Swaps two individual cards and their placements
-     * @param cardA
-     * @param cardB
+     * @param cardA one of the cards being swapped
+     * @param cardB the other card being swapped
      */
     public void swap(Card cardA, Card cardB){
         Card holder = new Card("","");
@@ -77,6 +77,11 @@ public class Deck {
         cardB.setColor(holder.getColor());
         cardB.setType(holder.getType());
     }
+
+    /**
+     * Draws a card from the deck by removing it and returning it
+     * @return the card drawn
+     */
 
     public Card draw(){
         return deck.remove();
@@ -96,7 +101,7 @@ public class Deck {
 
     /**
      * creates a new deck from the pile class to reuse used cards
-     * @param pile
+     * @param pile the pile being shuffled into the deck
      */
 
     public void newDeck(Deque<Card> pile){
@@ -115,13 +120,17 @@ public class Deck {
         return deck.remove();
     }
 
+    /**
+     * Takes the ArrayList from shuffle and uses it as reference
+     * @param shuffle the Arraylist that is shuffled
+     */
     public Deck(ArrayList shuffle){
         this.deck = new ArrayDeque<>(shuffle);
     }
 
     /**
      * This checks to see if the deck is empty
-     * @return
+     * @return a true of false response if the deck is or is not empty
      */
     public Boolean emptyDeck(){
         return this.deck.isEmpty();

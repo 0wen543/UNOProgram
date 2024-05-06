@@ -22,9 +22,12 @@ public class Pile {
 
     /**
      * Clears the stack, will be used once a new deck is made after the deck has been used up
+     * and adds the old top card to the top of the pile
      */
     public void ClearPile(){
+        Card c= topCard();
         stack.clear();
+        stack.add(c);
     }
 
     /**
@@ -34,6 +37,10 @@ public class Pile {
         return this.stack;
     }
 
+    /**
+     * checks the top card of the deck
+     * @return the last card played
+     */
     public Card topCard(){
         return stack.getFirst();
     }

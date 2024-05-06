@@ -51,6 +51,7 @@ public class Game {
         //Starts the pile with the first card on top of the deck after dealing hands
         thePile.addCard(theDeck.getCard());
 
+        //runs the game loop
         while(!players.get(turnCounter).hasWon()){
             try{
                 //List out every card in the hand
@@ -60,11 +61,13 @@ public class Game {
                         System.out.println(i + ". " + players.get(turnCounter).getCard(i - 1).toString());
                     }
                     System.out.printf("\nThe top card is a " + thePile.topCard().toString() + "\n");
+
                     //check hand for any playable cards
                     if (!(handPlayability(players.get(turnCounter), thePile.topCard()))) {
-                        //then player must draw
+                        //then player must draw until they could play a card
                         players.get(turnCounter).addCard(theDeck.draw());
-                    } else {
+                    }
+                    else {
                         System.out.println("Please type in number to play your card.");
                         playerEntry = scan.next();
                         selectCard=Integer.parseInt(playerEntry);
@@ -77,10 +80,11 @@ public class Game {
                         } else {
                             System.out.println("That card is not valid.");
                         }
-                        //Occurs when a plus four is played
+
+                        //Occurs when a wild is played
                         if (isWild(played)) {
                             while(!isValidColor) {
-                                System.out.println("Please choose a color.(Lowercase)");
+                                System.out.println("Please choose a color.(lowercase)");
                                 newColor = scan.next();
                                 if (newColor.equals("yellow")||newColor.equals("red")||newColor.equals("green")||newColor.equals("blue")){
                                     isValidColor=true;
@@ -98,7 +102,7 @@ public class Game {
                                 thePile.topCard().setColor("blue");
                             }
                         }
-                        //occurs when a wild card is played
+                        //occurs when a +4 card is played
                         else if (isPlusFour(played)) {
                             for (int i = 0; i < 4; i++) {
                                 if (turnCounter+1==numPlayers){
@@ -108,6 +112,7 @@ public class Game {
                             }
                             turnCounter++;
                         }
+
                         //occurs when a skip is played
                         else if (isSkip(played)) {
                             turnCounter++;
@@ -115,7 +120,6 @@ public class Game {
                                 turnCounter=0;
                             }
                         }
-
 
                         //occurs when a reverse card is played
                         else if (isReverse(played)) {
@@ -140,7 +144,6 @@ public class Game {
                             }
                         }
 
-
                         //occurs when a plus two is played
                         else if (isPlusTwo(played)) {
                             for (int i = 0; i < 2; i++) {
@@ -158,17 +161,25 @@ public class Game {
                         }
                     }
                 }
+                //adds one to the turn counter
                 turnCounter++;
+
+                //checks to see if the turn counter needs reset
                 if (turnCounter>=numPlayers) {
                     turnCounter = 0;
                     isPlayable=false;
                 }else {
                     isPlayable=false;
                 }
+
+                //checks to see if the deck is emptied and the needs to reshuffle the pile into the deck
                 if (isEmpty(theDeck)){
                     theDeck.newDeck(thePile.getPile());
+                    thePile.ClearPile();
                     theDeck.shuffle();
                 }
+
+                //checks to see if the player has won
                 if(isWinner(players.get(turnCounter))){
                     System.out.println("Congratulations Player "+players.get(turnCounter).getPlayNum()+" is the winner!!!!");
                     break;
