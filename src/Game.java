@@ -163,7 +163,7 @@ public class Game {
                     //checks to see if the player has won
                     if(isWinner(players.get(turnCounter))){
                         System.out.println("Congratulations Player "+players.get(turnCounter).getPlayNum()+" is the winner!!!!");
-                        break;
+                        System.exit(0);
                     }
                 }
                 //adds one to the turn counter
